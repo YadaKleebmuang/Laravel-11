@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class project extends Model
+class Book extends Model
 {
-    //1:1
+    //1:M
     public function programmer()
     {
-        return $this->belongsTo('App\Models\Programmer');
+        return $this->belongsTo(Book::class);
     }
 }

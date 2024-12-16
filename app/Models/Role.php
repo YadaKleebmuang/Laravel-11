@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class project extends Model
+class Role extends Model
 {
-    //1:1
-    public function programmer()
+    //M:M
+    public function users()
     {
-        return $this->belongsTo('App\Models\Programmer');
+        return $this->belongsToMany(User::class, 'role_users');
     }
 }
