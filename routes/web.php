@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\JoinController;
 use App\Http\Controllers\EloquentController;
+use App\Http\Controllers\AuthenController;
+use App\Models\Role;
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,5 +38,18 @@ Route::controller(EloquentController::class)->group(function(){
     Route::get('/add-user','addUser');
     Route::get('/role-user/{id}','RoleByUser');
     Route::get('/user-role/{id}','UserByRole'); //ดึงข้อมูลของ user ออกมา โดยใช้รหัสของตำแหน่งนั้นๆ
+});
 
+Route::middleware('guest')->group(function()
+{
+    Route::get('/register',[AuthenController::class,'register']);
+    Route::post('/register/authenticate',[AuthenController::class,'store'])->name('register.auth');
+    Route::post('/login',[AuthenController::class,'Login'])->name('Login');
+    Route::post('/login/authenticate',[AuthenController::class,'Authen'])->name('login.authenticate');
+});
+
+Route::middleware('auth')->group(function()
+{
+    Route::view('/home','home')->name('home');
+    Route::get('/logout',[AuthenController::class,'Logout'])->name('logout');
 });
