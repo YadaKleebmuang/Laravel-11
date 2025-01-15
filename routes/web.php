@@ -6,7 +6,10 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\JoinController;
 use App\Http\Controllers\EloquentController;
 use App\Http\Controllers\AuthenController;
+use App\Http\Controllers\ProfileController;
 use App\Models\Role;
+use Symfony\Component\HttpKernel\Profiler\Profile;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,3 +56,5 @@ Route::middleware('auth')->group(function()
     Route::view('/home','home')->name('home');
     Route::get('/logout',[AuthenController::class,'Logout'])->name('logout');
 });
+
+Route::resource('/profiles', ProfileController::class);
